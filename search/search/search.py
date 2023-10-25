@@ -166,6 +166,34 @@ def uniformCostSearch(problem: SearchProblem):
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
 
+    searchAgents = __import__('searchAgents')
+
+    startState = searchAgents.getStartState()
+
+    #uniform cost search algorithm
+    visited = set()
+    queue = __import__('util').PriorityQueue()
+
+    visited.add(startState)
+    queue.push(startState, 0)
+
+    while queue:
+        queue.sort() 
+        cost, state = queue.pop(0)  
+
+        if state not in visited:
+            visited.add(state)
+
+            if problem.isGoalState(state):
+                return True
+
+            for successor, action, step_cost in problem.getSuccessors(state):
+                if successor not in visited:
+                    total_cost = cost + step_cost
+                    queue.append((total_cost, successor))
+
+    return False 
+
 def nullHeuristic(state, problem=None):
     """
     A heuristic function estimates the cost from the current state to the nearest
