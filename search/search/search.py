@@ -113,7 +113,7 @@ def depthFirstSearch(problem: SearchProblem):
 
     startState = searchAgents.getStartState()
 
-    visited = {}
+    visited = set()
 
     visited.add(startState)
 
@@ -121,7 +121,7 @@ def depthFirstSearch(problem: SearchProblem):
         if(problem.isGoalState(startState)):
             return True
         else:
-            for successor in problem.getSuccessors(startState):
+            for successor, _, _ in problem.getSuccessors(startState):
                 if(successor not in visited):
                     visited.add(successor)
                     startState = successor
@@ -135,6 +135,31 @@ def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
+
+    searchAgents = __import__('searchAgents')
+
+
+    startState = searchAgents.getStartState()
+
+    visited = set()  
+    queue = __import__('util').Queue()  
+
+    visited.add(startState)
+    queue.push(startState)
+
+    while not queue.isEmpty(): 
+        m = queue.pop()
+
+        if problem.isGoalState(m):
+            return True
+
+        for neighbor, _, _ in problem.getSuccessors(m):
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.push(neighbor)
+
+    return False  
+
 
 def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
