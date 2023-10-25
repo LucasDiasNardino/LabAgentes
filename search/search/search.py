@@ -31,7 +31,12 @@ class SearchProblem:
         """
         Returns the start state for the search problem.
         """
+
         util.raiseNotDefined()
+
+        searchAgents = __import__('searchAgents')
+
+        return searchAgents.getStartState()
 
     def isGoalState(self, state):
         """
@@ -40,6 +45,13 @@ class SearchProblem:
         Returns True if and only if the state is a valid goal state.
         """
         util.raiseNotDefined()
+
+        searchAgents = __import__('searchAgents')
+
+        if(searchAgents.isGoalState(state)):
+            return True
+        else:
+            return False
 
     def getSuccessors(self, state):
         """
@@ -52,6 +64,10 @@ class SearchProblem:
         """
         util.raiseNotDefined()
 
+        searchAgents = __import__('searchAgents')
+
+        return searchAgents.getSuccessors(state)
+
     def getCostOfActions(self, actions):
         """
          actions: A list of actions to take
@@ -60,6 +76,10 @@ class SearchProblem:
         The sequence must be composed of legal moves.
         """
         util.raiseNotDefined()
+
+        searchAgents = __import__('searchAgents')
+
+        return searchAgents.getCostOfActions(actions)
 
 
 def tinyMazeSearch(problem):
@@ -88,6 +108,28 @@ def depthFirstSearch(problem: SearchProblem):
     """
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
+
+    searchAgents = __import__('searchAgents')
+
+    startState = searchAgents.getStartState()
+
+    visited = {}
+
+    visited.add(startState)
+
+    while True:
+        if(problem.isGoalState(startState)):
+            return True
+        else:
+            for successor in problem.getSuccessors(startState):
+                if(successor not in visited):
+                    visited.add(successor)
+                    startState = successor
+                    break
+                else:
+                    return False           
+    
+
 
 def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
