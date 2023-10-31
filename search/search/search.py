@@ -203,11 +203,11 @@ def nullHeuristic(state, problem=None):
 
     searchAgents = __import__('searchAgents')
 
-    if problem is None:
-        return 0
-    
+    #estimate the cost from the current state to the nearest goal
+    nearestGoal = searchAgents.getClosestDot(state, problem)
+
     x1, y1 = state
-    x2, y2 = problem.goal
+    x2, y2 = nearestGoal
 
     return abs(x1 - x2) + abs(y1 - y2)
 
