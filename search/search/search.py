@@ -203,13 +203,11 @@ def nullHeuristic(state, problem=None):
 
     searchAgents = __import__('searchAgents')
 
-    #estimate the cost from the current state to the nearest goal
-    nearestGoal = searchAgents.getClosestDot(state, problem)
+    position = searchAgents.getPosition(state)
 
-    x1, y1 = state
-    x2, y2 = nearestGoal
-
-    return abs(x1 - x2) + abs(y1 - y2)
+    xy1 = position
+    xy2 = problem.goal
+    return abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1])
 
 
 def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
